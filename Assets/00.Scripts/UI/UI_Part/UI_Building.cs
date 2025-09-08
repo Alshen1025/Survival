@@ -49,10 +49,10 @@ public class UI_Building : UI_Base
                 break;
             }
         }
-        Debug.Log(CanBuild);
+        
         if (CanBuild == false) return;
         Close();
-
+        
         ManagerBase.instance.buildingManager.SetBuild(BuildingObject);
     }
     

@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class BonFire : M_Object
 {
-    public override void Interaction()
+    public override void Interaction(Character character)
     {
-        base.Interaction();
-        Player_Movement.instance.AnimationChange("Sitting");
+        base.Interaction(character);
+        character.AnimationChange("Sitting");
         StartCoroutine(BonFireCoroutine());
     }
 

@@ -7,6 +7,7 @@ public class UI_Base : MonoBehaviour
     public virtual void Open()
     {
         gameObject.SetActive(true);
+        Canvas_Handler.Uis.Enqueue(this);
     }
 
     public virtual void Close()
@@ -16,7 +17,8 @@ public class UI_Base : MonoBehaviour
             Debug.LogWarning("UI is not active");
             return;
         }
-        if(GetComponent<Animator>()  != null)
+        Canvas_Handler.Uis.Dequeue();
+        if (GetComponent<Animator>()  != null)
         {
             GetComponent<Animator>().SetTrigger("Out");
             return;

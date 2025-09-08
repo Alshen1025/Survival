@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    private Transform player;
 
     [SerializeField] private float PosX;
     [SerializeField] private float PosY;
@@ -13,6 +13,8 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
+        player = Player_Movement.instance.transform;
+
         Vector3 startPosition = new Vector3(player.transform.position.x + PosX,
             player.transform.position.y + PosY,
             player.transform.position.z + PosZ);

@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CharacterController))]
-public class Player_Movement : MonoBehaviour
+public class Player_Movement : Character
 {
     public static Player_Movement instance = null;
 
@@ -14,11 +15,8 @@ public class Player_Movement : MonoBehaviour
     public float rotationSpeed = 10.0f;
 
 
-    [SerializeField] private GameObject[] Equipments;
-
 
     private CharacterController controller;
-    private Animator animator;
     private Player_FindObject FindObject;
 
     void Awake()
@@ -26,26 +24,22 @@ public class Player_Movement : MonoBehaviour
         if (instance == null) instance = this;
     }
 
-    public void AnimationChange(string temp)
-    {
-        animator.SetTrigger(temp);
-    }
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
+        base.Start();
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
         FindObject = GetComponent<Player_FindObject>();
 
-        Delegate_Handler.OnInteraction += () =>
-        {
-            animator.SetBool("Interaction", true);
-            animator.SetFloat("Speed", 0.0f);
-
-        };
+        Delegate_Handler.OnInteraction += ReturnCharacterMove;
         Delegate_Handler.OutInteraction += () => animator.SetBool("Interaction", false);
+    }
+
+    public void ReturnCharacterMove()
+    {
+        animator.SetBool("Interaction", true);
+        animator.SetFloat("Speed", 0.0f);
     }
 
     // Update is called once per frame
@@ -53,12 +47,14 @@ public class Player_Movement : MonoBehaviour
     {
         if (FindObject.OnInteraction)
         {
-            if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.F))
+            //!EventSystem.current.IsPointerOverGameObject(0) -> UI클릭시 인터렉션이 종료되지 않음
+            if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.F) && !Canvas_Handler.IsPointerOverUIObject())
             {
                 Delegate_Handler.OnEndInteraction();
-            }
+            }  
             return;
         }
+        if (Canvas_Handler.Uis.Count > 0) return;
         Move();
         RotateTowardsMouse();
     }
@@ -102,17 +98,6 @@ public class Player_Movement : MonoBehaviour
         }
     }
 
-    public void ChangeEquipment(Object_Type type, bool active)
-    {
-        Equipments[(int)type].SetActive(active);
-    }
-
-    public void DeactiveEquipment()
-    {
-        for(int i = 0; i< Equipments.Length; i++)
-        {
-            Equipments[i].SetActive(false);
-        }
-    }
+    
 
 }

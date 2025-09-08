@@ -10,4 +10,14 @@ public class Utils : MonoBehaviour
 
         return timer;
     }
+
+    public static T FindBase<T>(Transform parent, string key)
+    {
+        return parent.Find(key).GetComponent<T>();
+    }
+
+    public static void SetLayer(string layer, GameObject obj)
+    {
+        obj.layer = LayerMask.NameToLayer(layer);   
+    }
 }

@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbb1a1fc488a5f47b8fa895f577e63e, type: 3}
   m_Name: Monster_Energy
   m_EditorClassIdentifier: 
-  ItemName: "\uBAAC\uC2A4\uD130 \uC815\uC218"
-  Description: "\uBAAC\uC2A4\uD130\uAC00 \uC8FD\uC73C\uBA70 \uB0A8\uAE34 \uADF8\uB4E4\uC758
-    \uC815\uC218"
+  Key: Monster_Energy
   ItemID: 10005
   Weight: 20
   Type: 2

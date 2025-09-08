@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbb1a1fc488a5f47b8fa895f577e63e, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  ItemName: "\uB3CC"
-  Description: "\uBC14\uC704\uC5D0\uC11C \uB098\uC628 \uB3CC"
+  Key: Stone
   ItemID: 10007
   Weight: 20
   Type: 2

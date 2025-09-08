@@ -49,8 +49,8 @@ public class BuildingPanel : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void SetData()
     {
         gameObject.SetActive(true);
-        Icon.sprite = AssetManager.GetAtlas(m_Data.Name);
-        Text.text = m_Data.Name;
+        Icon.sprite = AssetManager.GetAtlas(m_Data.Key);
+        Text.text = m_Data.Key;
     }
 
 

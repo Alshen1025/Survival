@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player_FindObject : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class Player_FindObject : MonoBehaviour
         UIInit();
     }
 
-    void OnEndInteraction()
+    public void OnEndInteraction()
     {
         OnInteraction = false;
         Player_Movement.instance.DeactiveEquipment();
@@ -60,6 +61,12 @@ public class Player_FindObject : MonoBehaviour
             }
         }
 
+        bool isMouseOverUI = Canvas_Handler.IsPointerOverUIObject();
+        if (isMouseOverUI)
+        {
+            closeObject = null;
+        }
+
         if (closeObject != null)
         {
             ShowUI(closeObject);
@@ -73,7 +80,7 @@ public class Player_FindObject : MonoBehaviour
                 }
                 else subObject = closeObject.GetComponent<M_Object>();
 
-                subObject.Interaction();
+                subObject.Interaction(GetComponent<Character>());
                 Delegate_Handler.OnStartInteraction();
             }
         }

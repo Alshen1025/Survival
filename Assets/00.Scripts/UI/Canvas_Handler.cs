@@ -1,9 +1,10 @@
 //using System;
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Canvas_Handler : MonoBehaviour 
 {
@@ -14,6 +15,22 @@ public class Canvas_Handler : MonoBehaviour
     }
 
     private Dictionary<string, UI_Base> uiBases = new Dictionary<string, UI_Base>();
+    public static Queue<UI_Base> Uis = new Queue<UI_Base>();
+     
+    public UI_Base GetUI(string name)
+    {
+        if(uiBases.ContainsKey(name))
+        {
+            return uiBases[name];
+        }
+
+        var uiBase = Instantiate(Resources.Load<UI_Base>("UI/" + name), transform);
+        uiBases.Add(name, uiBase);
+        uiBase.gameObject.SetActive(false);
+        return uiBase;
+
+    }
+
 
     public void OpenUI(string uiName)
     {
@@ -68,12 +85,16 @@ public class Canvas_Handler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             uiBases["Inventory"].Toggle();
+            Player_Movement.instance.ReturnCharacterMove();
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
             uiBases["BUILDING"].Toggle();
+            Player_Movement.instance.ReturnCharacterMove();
         }
     }
+
+
 
     public void GetText(string temp, Color color)
     {
@@ -125,5 +146,14 @@ public class Canvas_Handler : MonoBehaviour
             yield return null;
         }
         
+    }
+
+    public static bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }

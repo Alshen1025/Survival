@@ -42,6 +42,10 @@ public class BuildingObject : MonoBehaviour
     //portal
     public GameObject PortalQuad;
 
+    //Worker
+    public bool Working = false;
+
+
     private void Awake()
     {
         M_Opaque = Resources.Load<Material>("M_Opaque");
@@ -60,10 +64,20 @@ public class BuildingObject : MonoBehaviour
         parent.eulerAngles = new Vector3(55.0f, parent.eulerAngles.y - transform.eulerAngles.y, 0.0f);
 
         Board.SetActive(true);
-        Icon.sprite = AssetManager.GetAtlas(Data.Name);
-        Name.text = Data.Name;
+        Icon.sprite = AssetManager.GetAtlas(Data.Key);
+        Name.text = Data.Key;
         SetBuildingData(Data.Time, BuildCompleted);
     }
+
+    public void SetMakeData(string key, float timer, Action action = null)
+    {
+        Board.SetActive(true);
+        Icon.sprite =  AssetManager.GetAtlas(key);
+        Name.text = key;
+        collider.gameObject.layer = LayerMask.NameToLayer("WorkObject");
+        SetBuildingData(timer, action);
+    }
+
     public void SetBuildingData(float time, Action action)
     {
         StartCoroutine(SliderFillCoroutine(time, action));
@@ -112,7 +126,6 @@ public class BuildingObject : MonoBehaviour
             renderer.material = OriginalMaterial;
         }
         buildCompleted = true;
-      
         collider.gameObject.layer = LayerMask.NameToLayer("Object");
         
     }
@@ -129,6 +142,7 @@ public class BuildingObject : MonoBehaviour
         }
         if(action != null)
         {
+            Board.GetComponent<Animator>().SetTrigger("Out");
             action?.Invoke();
         }
         

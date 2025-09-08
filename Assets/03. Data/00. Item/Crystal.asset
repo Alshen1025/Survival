@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbb1a1fc488a5f47b8fa895f577e63e, type: 3}
   m_Name: Crystal
   m_EditorClassIdentifier: 
-  ItemName: "\uD06C\uB9AC\uC2A4\uD0C8"
-  Description: "\uBE5B\uC774 \uB098\uB294 \uBCF4\uC11D"
+  Key: Crystal
   ItemID: 10001
   Weight: 10
   Type: 2

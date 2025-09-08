@@ -18,7 +18,7 @@ MonoBehaviour:
   Drop_Items:
   - Item_Data: {fileID: 11400000, guid: 056cb4d6211259e4c8d86629a1d820da, type: 2}
     Value: 100
-    Maximum: 16
+    Maximum: 50
   - Item_Data: {fileID: 11400000, guid: 197372bc55519a74496d2f7d743f288d, type: 2}
     Value: 100
-    Maximum: 17
+    Maximum: 50

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbb1a1fc488a5f47b8fa895f577e63e, type: 3}
   m_Name: FireWood
   m_EditorClassIdentifier: 
-  ItemName: "\uC7A5\uC791"
-  Description: "\uBD88\uC5D0 \uC798\uD0C0\uB294 \uB098\uBB34"
+  Key: FireWood
   ItemID: 10003
   Weight: 5
   Type: 2

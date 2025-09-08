@@ -26,3 +26,11 @@ public enum Building_Type
 {
     Portal
 }
+
+public enum WorkerState
+{
+    Idle,
+    Move,
+    Arrived,
+    Interaction
+}

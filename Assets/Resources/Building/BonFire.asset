@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe0073b2a8cb8140ba26c84435b4a69, type: 3}
   m_Name: BonFire
   m_EditorClassIdentifier: 
-  Name: BonFire
+  Key: BonFire
   Time: 5
   m_items:
   - Data: {fileID: 11400000, guid: 66f7c8c98ea35ba4d96f9bad03a8593e, type: 2}

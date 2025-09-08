@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbb1a1fc488a5f47b8fa895f577e63e, type: 3}
   m_Name: Leather
   m_EditorClassIdentifier: 
-  ItemName: "\uAC00\uC8FD"
-  Description: "\uC4F8\uB9CC\uD55C \uAC00\uC8FD"
+  Key: Leather
   ItemID: 10004
   Weight: 5
   Type: 2

@@ -22,37 +22,48 @@ public class M_Object : MonoBehaviour
 
     }
 
-    public virtual void Interaction()
+    public virtual void Interaction(Character character)
     {
-        Player_Handler.m_Object = this;
+        character.m_Object = this;
         GetInteraction = true;
     }
 
-    public virtual void OnHit()
+    public virtual void OnHit(Character character)
     {
-        Canvas_Handler.instance.GetBoard();
-        ManagerBase.instance.gameManager.SetStamina(-10);
-        HP_Init();
+        if(character.MainPlayer)
+        {
+            Canvas_Handler.instance.GetBoard();
+            ManagerBase.instance.gameManager.SetStamina(-10);
+        }
+        HP_Init(character);
     }
 
-    public virtual void HP_Init()
+    public virtual void HP_Init(Character character)
     {
         if (m_Data == null)
             Debug.LogError("m_Data가 null입니다: " + gameObject.name);
         if (Canvas_Handler.instance == null)
             Debug.LogError("Canvas_Handler.instance가 null입니다");
 
-        if (HP<=0)
+        if (HP <= 0)
         {
             HP = 0;
             Particle_Handler.Instance.OnParticle(transform.GetChild(0).GetComponent<MeshRenderer>());
-            Canvas_Handler.instance.BoardHpWhiteFill.fillAmount = 1.0f;
-            Canvas_Handler.instance.AllStopCoroutine();
+            if (character.MainPlayer)
+            {
+                Canvas_Handler.instance.BoardHpWhiteFill.fillAmount = 1.0f;
+                Canvas_Handler.instance.AllStopCoroutine();
+                Delegate_Handler.OnEndInteraction();
+            }
+            else
+            {
+                character.GetComponent<Worker>().StateChange(WorkerState.Idle);
+            
+            }
             Destroy(this.gameObject);
-            Delegate_Handler.OnEndInteraction();
             return;
         }
-        
-        Canvas_Handler.instance.BoardFill(HP, m_Data.HP);
+        if(character.MainPlayer) Canvas_Handler.instance.BoardFill(HP, m_Data.HP);
+
     }
 }
