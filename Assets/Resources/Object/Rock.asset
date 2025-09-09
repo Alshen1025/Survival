@@ -15,6 +15,7 @@ MonoBehaviour:
   m_Type: 1
   Name: "\uBC14\uC704"
   HP: 100
+  obj: {fileID: 1964979563641626227, guid: fba6f107e60137045a4d8707859dd652, type: 3}
   Drop_Items:
   - Item_Data: {fileID: 11400000, guid: 056cb4d6211259e4c8d86629a1d820da, type: 2}
     Value: 100

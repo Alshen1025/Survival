@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class M_Object : MonoBehaviour
 {
-    public Object_Scriptable m_Data;
+    [HideInInspector] public Object_Scriptable m_Data;
     public bool GetInteraction = false;
     public int HP;
 
@@ -60,6 +60,7 @@ public class M_Object : MonoBehaviour
                 character.GetComponent<Worker>().StateChange(WorkerState.Idle);
             
             }
+            ManagerBase.instance.objectManager.RemoveObjectFromCullingGroup(this.gameObject);
             Destroy(this.gameObject);
             return;
         }
