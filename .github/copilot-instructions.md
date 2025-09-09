@@ -2,7 +2,7 @@
 - Project name: Survival
 - Unity version: Unity 6000.0.46f1
 - Active game object:
-  - Name: @GameManager
-  - Tag: Untagged
+  - Name: Main Camera
+  - Tag: MainCamera
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

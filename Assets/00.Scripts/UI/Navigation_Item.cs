@@ -18,6 +18,6 @@ public class Navigation_Item : MonoBehaviour
     {
         RarityImage.sprite = AssetManager.GetAtlas(m_Data.rarity.ToString());
         ItemIconImage.sprite = AssetManager.GetAtlas(m_Data.ItemID.ToString());
-        ItemNameText.text = m_Data.Key + "x" + count.ToString();
+        ItemNameText.text = m_Data.Key + " x " + count.ToString();
     }
 }
