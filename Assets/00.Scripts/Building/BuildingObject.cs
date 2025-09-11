@@ -90,6 +90,7 @@ public class BuildingObject : MonoBehaviour
         UI_CompassBar.AddMarker(transform, Data.Key);
         StartCoroutine(CompltedCoroutine());
         PortalQuad.SetActive(true);
+        GetComponent<AudioSource>().enabled = true;
     }
 
     private IEnumerator CompltedCoroutine()

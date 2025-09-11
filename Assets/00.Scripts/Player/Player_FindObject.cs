@@ -17,6 +17,7 @@ public class Player_FindObject : MonoBehaviour
     Transform closeObject;
 
 
+
     void Start()
     {
         Delegate_Handler.OnInteraction += OnInteractionVoid;
@@ -70,6 +71,7 @@ public class Player_FindObject : MonoBehaviour
         if (closeObject != null)
         {
             ShowUI(closeObject);
+           
 
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -92,7 +94,7 @@ public class Player_FindObject : MonoBehaviour
         List<Transform> toRemove = new List<Transform>();
         foreach (var UIEntry in activeUI)
         {
-            if (UIEntry.Key != closeObject)
+            if (UIEntry.Key != closeObject || closeObject == null)
             {
                 UIEntry.Value.GetComponent<UI_AnimationHandler>().AnimationChange("Out");
                 toRemove.Add(UIEntry.Key);
