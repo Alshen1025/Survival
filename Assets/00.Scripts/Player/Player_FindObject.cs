@@ -1,6 +1,8 @@
+using IdyllicFantasyNature;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player_FindObject : MonoBehaviour
 {
@@ -8,12 +10,19 @@ public class Player_FindObject : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] Canvas uiCanvas;
     [SerializeField] GameObject uiPrefab;
-    
+
+    //Monster
+    [SerializeField] private LayerMask MonsterLayer;
+     public bool GetMonster = false;
+     bool isAttack = false;
+    [SerializeField] float attackSpeed = 1.0f;
+    //
+
 
     [SerializeField] private float activationDistance = 3.0f;
 
     private Dictionary<Transform, GameObject> activeUI = new Dictionary<Transform, GameObject>();
-    public bool OnInteraction = false;
+    [HideInInspector] public bool OnInteraction = false;
     Transform closeObject;
 
 
@@ -42,6 +51,29 @@ public class Player_FindObject : MonoBehaviour
     void Update()
     {
         if (OnInteraction) return;
+
+        //MonsterAttack
+        Collider[] monsters = Physics.OverlapSphere(transform.position, checkRadius, MonsterLayer);
+        GetMonster = monsters.Length > 0;  
+        //몬스터 있으면 상호작용 못하게
+        if (GetMonster)
+        {
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                Debug.Log("input f");
+                if(isAttack == false)
+                {
+                    Debug.Log("call AttackMonster");
+                    Player_Movement.instance.EquipmentChange(Object_Type.Monster, true);
+                    AttackMonster(monsters[0].transform, monsters);
+                }
+            }
+            
+            transform.LookAt(monsters[0].transform);
+            return;
+        }
+        Player_Movement.instance.EquipmentChange(Object_Type.Monster, false);
+        //
 
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, checkRadius, interactableLayer);
 
@@ -105,6 +137,16 @@ public class Player_FindObject : MonoBehaviour
             activeUI.Remove(transformToRemove);
         }
     }
+
+     private void AttackMonster(Transform target, Collider[] monsters)
+    {
+        isAttack = true;
+        Player_Movement.instance.AnimationChange("Attack");
+        Player_Movement.instance.colliders = monsters;
+        Invoke("ReturnAttack", attackSpeed);
+    }
+
+    private void ReturnAttack() => isAttack = false;
 
 
     private void ShowUI(Transform targetTransform)

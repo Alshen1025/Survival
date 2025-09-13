@@ -30,8 +30,6 @@ public class Canvas_Handler : MonoBehaviour
         return uiBase;
 
     }
-
-
     public void OpenUI(string uiName)
     {
         if (uiBases.ContainsKey(uiName))
@@ -65,7 +63,8 @@ public class Canvas_Handler : MonoBehaviour
     //Profile
     [SerializeField] private TextMeshProUGUI StaminaText;
     [SerializeField] private Image StaminaSlider;
-    
+    [SerializeField] private TextMeshProUGUI HPText;
+    [SerializeField] private Image HPSlider;
 
     private void Start()
     {
@@ -77,7 +76,7 @@ public class Canvas_Handler : MonoBehaviour
         //Delegate_Handler.OnInteraction += GetBoard;
         Delegate_Handler.OutInteraction += BoardOut;
         Delegate_Handler.OnStamina += StaminaCheck;
-
+        Delegate_Handler.OnHP += HPCheck;
     }
 
     private void Update()
@@ -96,9 +95,8 @@ public class Canvas_Handler : MonoBehaviour
 
 
 
-    public void GetText(string temp, Color color)
+    public void GetText(string temp, Color color, Vector3 posReal)
     {
-        Vector3 posReal = Player_Movement.instance.transform.position;
         posReal.y += 0.5f;
         posReal.x += Random.Range(-0.5f, 0.5f);
         posReal.z += Random.Range(-0.5f, 0.5f);
@@ -111,6 +109,12 @@ public class Canvas_Handler : MonoBehaviour
 
     }
 
+    private void HPCheck(int value)
+    {
+        Character character = Player_Movement.instance.transform.GetComponent<Character>();
+        HPText.text = character.Hp.ToString() + "/"  + character.MaxHp.ToString();
+        HPSlider.fillAmount = (float)character.Hp / (float)character.MaxHp;
+    }
 
     private void StaminaCheck(int value)
     {

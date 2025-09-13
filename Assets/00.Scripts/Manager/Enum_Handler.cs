@@ -1,7 +1,8 @@
 public enum Object_Type
 {
     Tree,
-    Stone
+    Stone,
+    Monster
 }
 
 public enum Item_Type

@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         if(GetText)
         {
             Color color = value > 0 ? Color.green : Color.red;
-            Canvas_Handler.instance.GetText(value.ToString(), color);
+            Canvas_Handler.instance.GetText(value.ToString(), color, Player_Movement.instance.transform.position);
         }
         Delegate_Handler.OnStaminaChange(Stamina);
     }

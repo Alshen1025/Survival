@@ -32,6 +32,7 @@ public class Player_Movement : Character
         controller = GetComponent<CharacterController>();
         FindObject = GetComponent<Player_FindObject>();
 
+        Delegate_Handler.OnHPChange(Hp);
         Delegate_Handler.OnInteraction += ReturnCharacterMove;
         Delegate_Handler.OutInteraction += () => animator.SetBool("Interaction", false);
     }
@@ -56,6 +57,9 @@ public class Player_Movement : Character
         }
         if (Canvas_Handler.Uis.Count > 0) return;
         Move();
+
+        //몬스터 공격중이면 몬스터 바라보게
+        if (FindObject.GetMonster) return;
         RotateTowardsMouse();
     }
 
@@ -98,6 +102,13 @@ public class Player_Movement : Character
         }
     }
 
+
+    public void GetDamage(int dmg)
+    {
+        Canvas_Handler.instance.GetText(dmg.ToString(), Color.red, transform.position);
+        Hp -= dmg;
+        Delegate_Handler.OnHPChange(Hp);
+    }
     
 
 }
