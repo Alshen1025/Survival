@@ -17,3 +17,4 @@ public class ManagerBase : MonoBehaviour
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public ObjectManager objectManager;
 }
+ 

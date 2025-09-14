@@ -1,7 +1,9 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 
 public class ObjectManager : MonoBehaviour
@@ -14,7 +16,13 @@ public class ObjectManager : MonoBehaviour
     public float spawnAngle = 80.0f;
     public float CenterLimit = 5.0f;
     public int Maximum = 60;
-   public Object_Scriptable[] Datas;
+    public Object_Scriptable[] Datas;
+
+    //Monster
+    public GameObject MonsterSpawner;
+
+    //오브젝트 겹침 해결
+    public float checkRadius;
 
     private void Start()
     {
@@ -86,7 +94,7 @@ public class ObjectManager : MonoBehaviour
         {
             Vector3 pos;
             MakePos(out pos);
-            while (Vector3.Distance(pos, Vector3.zero) <= CenterLimit)
+            while (Vector3.Distance(pos, Vector3.zero) <= CenterLimit || IsPositionOverlapping(pos, checkRadius))
             {
                 MakePos(out pos);
             }
@@ -98,7 +106,32 @@ public class ObjectManager : MonoBehaviour
             SetObjects.Add(go);
             yield return null;
         }
+
+        //MonsterSpawn
+        for (int i = 0; i < 10; i++)
+        {
+            Vector3 pos;
+            MakePos(out pos);
+            while (Vector3.Distance(pos, Vector3.zero) <= CenterLimit)
+            {
+                MakePos(out pos);
+            }
+            var go = Instantiate(MonsterSpawner, new Vector3(pos.x, MonsterSpawner.transform.position.y, pos.z), Quaternion.identity);
+            yield return null;
+        }
         SetCulling();
+    }
+
+    private bool IsPositionOverlapping(Vector3 position, float checkRadius)
+    {
+        foreach(GameObject obj in SetObjects)
+        {
+            if (Vector3.Distance(obj.transform.position, position) < checkRadius)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void MakePos(out Vector3 pos)

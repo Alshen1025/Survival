@@ -70,6 +70,8 @@ public class Player_FindObject : MonoBehaviour
             }
             
             transform.LookAt(monsters[0].transform);
+            closeObject = null;
+            UIInit();
             return;
         }
         Player_Movement.instance.EquipmentChange(Object_Type.Monster, false);
