@@ -143,12 +143,17 @@ public class Player_FindObject : MonoBehaviour
      private void AttackMonster(Transform target, Collider[] monsters)
     {
         isAttack = true;
+        Player_Movement.instance.AnimationWeight(1, 1);
         Player_Movement.instance.AnimationChange("Attack");
         Player_Movement.instance.colliders = monsters;
         Invoke("ReturnAttack", attackSpeed);
     }
 
-    private void ReturnAttack() => isAttack = false;
+    private void ReturnAttack()
+    {
+        isAttack = false;
+        Player_Movement.instance.AnimationWeight(1, 0);
+    }
 
 
     private void ShowUI(Transform targetTransform)

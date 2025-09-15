@@ -15,7 +15,7 @@ public class ObjectManager : MonoBehaviour
     public float cullingGroupRadius = 5.0f;
     public float spawnAngle = 80.0f;
     public float CenterLimit = 5.0f;
-    public int Maximum = 60;
+    public int Maximum = 30;
     public Object_Scriptable[] Datas;
 
     //Monster

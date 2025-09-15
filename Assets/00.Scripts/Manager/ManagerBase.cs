@@ -11,10 +11,12 @@ public class ManagerBase : MonoBehaviour
         buildingManager = GetComponentInChildren<BuildingManager>();
         gameManager = GetComponentInChildren<GameManager>();
         objectManager = GetComponentInChildren<ObjectManager>();
+        wheatherManager = GetComponentInChildren<WheatherManager>();
     }
 
     [HideInInspector] public BuildingManager buildingManager;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public ObjectManager objectManager;
+    [HideInInspector] public WheatherManager wheatherManager;
 }
  
